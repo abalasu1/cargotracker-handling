@@ -1,19 +1,33 @@
 spring:
+  profiles: 
+    active: default
   application:
     name: "${IMAGE_NAME:template-spring-boot}"
-
-hello:
-  pattern: "Hello there, %s!"
-
-greetingservice:
-  beanName: "hola"
+  cloud:
+    stream:
+      bindings:     
+        cargoHandlingChannel1:
+          destination: cargoHandlings1
+          group: cargoHandlingsQueue1
+        cargoHandlingChannel2:
+          destination: cargoHandlings2
+          group: cargoHandlingsQueue2         
+  datasource:
+    url: "jdbc:mysql://mysql.cargotracker-db:3306/handlingmsdb?zeroDateTimeBehavior=CONVERT_TO_NULL&serverTimezone=EST"
+    username: handlingmsdb
+    password: handlingmsdb
+  rabbitmq:
+    host: rabbitmq-headless.cargotracker-mq
+    port: 5672
+    username: guest
+    password: guest  
 
 swagger:
   baseApiPackage:
-  - "com.ibm.hello"
+  - "com.cargotracker"
   - "com.ibm.health"
-  title: "${IMAGE_NAME:template-spring-boot}"
-  description: "Description"
+  title: "cargo-handling-service"
+  description: "cargo-handling-service"
   version: "1.0.0"
   termsOfServiceUrl: ""
 
@@ -28,7 +42,7 @@ management:
         include: "*"
 
 server:
-  port: ${PORT:9080}
+  port: ${PORT:8004}
 
 logging:
   level:
