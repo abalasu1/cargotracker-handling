@@ -42,6 +42,6 @@ vcsInfo:
 
 partOf: "cargotracker-backend"
 
-connectsTo: "handling-db"
+connectsTo: "handling-db, rabbitmq"
 
 runtime: spring
