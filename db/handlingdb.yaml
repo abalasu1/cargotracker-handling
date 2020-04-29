@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: handling-db-svc
-  namespace: cargotracker-handling
+  namespace: cargotracker-backend
 spec:
   ports:
   - port: 3306
@@ -14,7 +14,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: handling-db
-  namespace: cargotracker-handling
+  namespace: cargotracker-backend
 spec:
   selector:
     matchLabels:
