@@ -61,6 +61,48 @@ spec:
               value: ""
             - name: LOG_LEVEL
               value: {{ .Values.logLevel | quote }}
+            - name: SPRING_PROFILES_ACTIVE
+              value: {{ .Values.profiles.active | quote }}
+            - name: handlingdb.user.name
+              valueFrom:
+                secretKeyRef:
+                  name: cargotracker-handling-credentials
+                  key: handlingdb.user.name
+            - name: handlingdb.user.password
+              valueFrom:
+                secretKeyRef:
+                  name: cargotracker-handling-credentials
+                  key: handlingdb.user.password
+            - name: rabbitmq.user.name
+              valueFrom:
+                secretKeyRef:
+                  name: cargotracker-handling-credentials
+                  key: rabbitmq.user.name
+            - name: rabbitmq.user.password
+              valueFrom:
+                secretKeyRef:
+                  name: cargotracker-handling-credentials
+                  key: rabbitmq.user.password 
+            - name: rabbitmq.user.password
+              valueFrom:
+                secretKeyRef:
+                  name: cargotracker-handling-credentials
+                  key: rabbitmq.user.password
+            - name: handlingdburl
+              valueFrom:
+                configMapKeyRef:
+                  name: handling-config
+                  key: handlingdburl
+            - name: rabbitmqhost
+              valueFrom:
+                configMapKeyRef:
+                  name: handling-config
+                  key: rabbitmqhost
+            - name: rabbitmqport
+              valueFrom:
+                configMapKeyRef:
+                  name: handling-config
+                  key: rabbitmqport
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}
